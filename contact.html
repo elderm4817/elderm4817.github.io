@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact - Goblin's Grotto</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Goblin's Grotto</h1>
+  </header>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="characters.html">Characters</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+  <main>
+    <h2>Contact Us</h2>
+    <p>Have questions or want to join the adventure? Reach out to the Goblin's Grotto team!</p>
+
+   
+    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=elderm4817@student.faytechcc.edu&su=Hello%20Goblin's%20Grotto&body=I%20would%20like%20to%20ask%20about%20joining%20the%20adventure...">Send Email via Gmail</a>
+
+   
+    <section class="contact-form">
+      <h3>Leave a Suggestion or Comment:</h3>
+      <form id="contact-form">
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <label for="message">Message:</label><br>
+        <textarea id="message" name="message" rows="5" required></textarea><br><br>
+
+        <input type="submit" value="Send Message">
+      </form>
+    </section>
+
+
+
+<h3>Recent Suggestions and Comments:</h3>
+<button id="reset-comments" class="button" style="margin-bottom: 20px;">Reset Messages</button>
+<div id="submitted-comments"></div>
+
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Goblin's Grotto. All rights reserved.</p>
+        <p class="footer-links">
+          <a href="index.html">Home</a> |
+          <a href="characters.html">Characters</a> |
+          <a href="about.html">About</a> |
+          <a href="contact.html">Contact</a>
+        </p>
+  </footer>
+
+  <script>
+    const form = document.getElementById('contact-form');
+    const submittedCommentsDiv = document.getElementById('submitted-comments');
+  
+    const savedComments = JSON.parse(localStorage.getItem('comments')) || [];
+  
+    savedComments.forEach(comment => {
+      const commentElem = document.createElement('p');
+      commentElem.textContent = `Name: ${comment.name} | Email: ${comment.email} | Message: ${comment.message}`;
+      submittedCommentsDiv.appendChild(commentElem);
+    });
+  
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+  
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const message = document.getElementById('message').value;
+  
+      savedComments.push({ name, email, message });
+      localStorage.setItem('comments', JSON.stringify(savedComments));
+  
+      const newCommentElem = document.createElement('p');
+      newCommentElem.textContent = `Name: ${name} | Email: ${email} | Message: ${message}`;
+      submittedCommentsDiv.appendChild(newCommentElem);
+  
+      form.reset();
+    });
+  
+    // Reset button functionality
+    const resetButton = document.getElementById('reset-comments');
+    resetButton.addEventListener('click', () => {
+      localStorage.removeItem('comments');
+      submittedCommentsDiv.innerHTML = '';
+    });
+  </script>
+  
+  
+</body>
+</html>
